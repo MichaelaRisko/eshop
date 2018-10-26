@@ -2,6 +2,12 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import menu from "./img/icon/menu.svg";
+import fb from "./img/icon/facebook-logo.svg";
+import ig from "./img/icon/instagram.svg";
+import envelope from "./img/icon/envelope.svg";
+import youtube from "./img/icon/youtube.svg";
+//import { menu } from "./img/icon/menu.svg";
 
 const StyledLink = styled(NavLink)`
   text-decoration: none !important;
@@ -23,7 +29,7 @@ const StyledLink = styled(NavLink)`
 const Header = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0.7em 2em;
+  margin: 0em;
 
   .logo {
     font-family: "Abhaya Libre", serif;
@@ -55,7 +61,11 @@ const Header = styled.div`
     list-style: none;
     display: flex;
     flex-direction: row;
-    padding: 0;
+    padding: 0.5em 2em;
+  }
+  ul:first-child {
+    background: black;
+    color: white;
   }
 `;
 
@@ -66,7 +76,25 @@ function Navigation(props) {
     <Header>
       <div>
         <ul>
-          <li>.</li>
+          <li />
+          <li>first 500 orders get free stickers</li>
+          <li>
+            <img heigh={15} width={15} src={ig} />
+          </li>
+          <li>
+            <img heigh={15} width={15} src={fb} />
+          </li>
+          <li>
+            <img heigh={15} width={15} src={youtube} />
+          </li>
+          <li>
+            <img heigh={15} width={15} src={envelope} />
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <img heigh={20} width={20} src={menu} />
+          </li>
           <li>
             <StyledLink to="/" className="logo">
               yourcoffeeandprints

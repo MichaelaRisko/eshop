@@ -8,7 +8,7 @@ const FullPage = styled.div`
   margin: 0 !important;
   height: 100vh;
   main {
-    height: 75%;
+    height: 80%;
     background: url("about01.jpg") no-repeat center center fixed;
     background-size: cover;
     padding: 0 4em;

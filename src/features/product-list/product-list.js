@@ -30,13 +30,13 @@ const StyledBtn = styled.p`
 
 export default function ProductListItem(props) {
   return (
-    <div className="product-list-item">
+    <div className="product-list-item" style={{ background: "black" }}>
       <NavLink to={`/planners/planner_id_${props.product.id}`}>
         <img
           title={props.product.name}
           style={{ minWidth: "100%", height: "auto" }}
-          //src={`/products/${props.product.image}`}
-          src={"about01.jpg"}
+          // src={`/products/${props.product.image}`}
+          src={"/products/01.png"}
           onClick={() => props.onOpenProduct(props.product)}
         />
       </NavLink>
