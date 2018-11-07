@@ -19,26 +19,26 @@ const BestSellers = styled.div`
       flex-grow: 1;
     }
   }
+
+  section {
+    max-height: 50vw;
+    min-height: 50vw;
+  }
+
   section:nth-child(2) {
-    background: green;
-    padding: 0 2em;
+    max-width: 25%;
   }
 `;
 
 const Background = styled.div`
   order: 1;
   flex-grow: 1;
-  section {
-    width: 100%;
-    background: url("pictures/01.png") no-repeat center center;
-    background-size: cover;
-  }
+  width: auto;
 `;
 
 function ProductListing(props) {
-  console.log(props);
   return (
-    <BestSellers>
+    <BestSellers style={{ background: "black" }}>
       <section>
         <Background>
           <ProductListItem
@@ -106,7 +106,20 @@ function ProductListing(props) {
         </Background>
       </section>
       <section>
-        <p>m</p>
+        <Background>
+          <ProductListItem
+            key={props.products[1].id}
+            product={props.products[1]}
+            addToCart={props.addToCart}
+            removeFromCart={props.removeFromCart}
+            onOpenProduct={props.onOpenProduct}
+            cartItem={
+              props.cart.filter(
+                cartItem => cartItem.id === props.products[1].id
+              )[0]
+            }
+          />
+        </Background>
       </section>
       <section>
         <Background>

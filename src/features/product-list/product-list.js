@@ -28,18 +28,31 @@ const StyledBtn = styled.p`
   }
 `;
 
+const Item = styled.div`
+  margin: 0.5em 0.5em;
+  background: no-repeat center center;
+  background-size: cover;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.03);
+`;
+
 export default function ProductListItem(props) {
+  console.log(props);
+  //const picture = `url("/products/01.png")`;
+  const picture = `url("/products/${props.product.image}")`;
+
   return (
-    <div className="product-list-item" style={{ background: "black" }}>
-      <NavLink to={`/planners/planner_id_${props.product.id}`}>
-        <img
-          title={props.product.name}
-          style={{ minWidth: "100%", height: "auto" }}
-          // src={`/products/${props.product.image}`}
-          src={"/products/01.png"}
-          onClick={() => props.onOpenProduct(props.product)}
-        />
-      </NavLink>
+    <Item
+      style={{ background: `${picture}` }}
+      title={props.product.name}
+      onClick={() => props.onOpenProduct(props.product)}
+    >
+      <NavLink
+        to={`/planners/planner_id_${props.product.id}`}
+        style={{ minHeight: "100%" }}
+      />
       {/*
       <p>{props.product.name}</p>
       <p>${props.product.price}</p>
@@ -62,6 +75,6 @@ export default function ProductListItem(props) {
           </StyledBtn>
         ) : null}
       </div>*/}
-    </div>
+    </Item>
   );
 }
