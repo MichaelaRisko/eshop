@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import data from "./data/products.json";
-import LandingPage from "./LandingPage.js";
+import LandingPage from "./pages/LandingPage.js";
 import HomePage from "./pages/HomePage";
 import CartPage from "./pages/CartPage";
 import ShopPage from "./pages/ShopPage";

@@ -31,50 +31,36 @@ const StyledBtn = styled.p`
 const Item = styled.div`
   margin: 0.5em 0.5em;
   background: no-repeat center center;
-  background-size: cover;
+  background-size: cover !important;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
+  height: 100%;
   &:hover {
     transform: scale(1.03);
+  }
+  a {
+    height: 100% !important;
+  }
 `;
 
 export default function ProductListItem(props) {
   console.log(props);
   //const picture = `url("/products/01.png")`;
-  const picture = `url("/products/${props.product.image}")`;
+  const picture = `url("/products/${
+    props.product.image
+  } ") no-repeat center center`;
 
   return (
-    <Item
-      style={{ background: `${picture}` }}
-      title={props.product.name}
-      onClick={() => props.onOpenProduct(props.product)}
-    >
+    <Item style={{ background: `${picture}` }} title={props.product.name}>
       <NavLink
         to={`/planners/planner_id_${props.product.id}`}
-        style={{ minHeight: "100%" }}
+        onClick={() => props.onOpenProduct(props.product)}
       />
-      {/*
-      <p>{props.product.name}</p>
-      <p>${props.product.price}</p>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between"
-        }}
-      >
-        <StyledBtn onClick={() => props.addToCart(props.product)}>
-          Add to cart ({(props.cartItem && props.cartItem.quantity) || 0})
-        </StyledBtn>
-        {props.cartItem ? (
-          <StyledBtn
-            className="remove"
-            onClick={() => props.removeFromCart(props.cartItem)}
-          >
-            Remove
-          </StyledBtn>
-        ) : null}
-      </div>*/}
+      {false ? (
+        <div>
+          <p>{props.product.name}</p>
+        </div>
+      ) : null}
     </Item>
   );
 }
