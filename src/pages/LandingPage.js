@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import ProductListing from "./features/product-list";
-import data from "./data/products.json";
+import ProductListing from "../features/product-list";
+import data from "../data/products.json";
 
 const FullPage = styled.div`
   width: 100vw !important;
   margin: 0 !important;
-  height: 100vh;
+  height: 80vh;
   main {
-    height: 80%;
+    height: 100%;
     background: url("about01.jpg") no-repeat center center fixed;
     background-size: cover;
     padding: 0 4em;
@@ -82,9 +82,9 @@ class LandingPage extends Component {
           <main>
             <aside>
               <div />
-              <p>trending</p>
-              <p>colection</p>
-              <p>2019</p>
+              <p />
+              <p />
+              <p />
             </aside>
             <article>
               <h4>planner</h4>
@@ -100,16 +100,11 @@ class LandingPage extends Component {
               <img />
             </section>
           </main>
-          <div className="header-info">
-            <h2>#bestsellers</h2>
-            <div className="row">
-              <h6>featured</h6>
-              <h6>featured</h6>
-              <h6>featured</h6>
-            </div>
-          </div>
         </FullPage>
-        <ProductListing products={data.products} />
+        <ProductListing
+          products={data.products}
+          style={{ margin: "0em 4em" }}
+        />
         <div className="header-info">
           <h2>#recent post</h2>
         </div>

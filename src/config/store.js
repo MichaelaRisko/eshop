@@ -1,10 +1,12 @@
 import { createStore, combineReducers } from "redux";
 import cartReducer from "../features/cart/reducer";
 import idReducer from "../features/idReducer";
+import bestSellerReducer from "../features/bestSellerReducer";
 
 const rootReducer = combineReducers({
   cart: cartReducer,
-  selectedItem: idReducer
+  selectedItem: idReducer,
+  bestSeller: bestSellerReducer
 });
 
 /* eslint-disable no-underscore-dangle */
