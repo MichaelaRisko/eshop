@@ -58,6 +58,7 @@ const Header = styled.div`
   }
 
   ul {
+    background: white;
     list-style: none;
     display: flex;
     flex-direction: row;
@@ -68,6 +69,62 @@ const Header = styled.div`
     color: white;
   }
 `;
+
+export class Nav extends Component {
+  constructor(props) {
+    super(props);
+    this.handleScroll = this.handleScroll.bind(this);
+    this.state = {
+      scrolling: false
+    };
+  }
+
+  componentDidMount() {
+    window.addEventListener("scroll", this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
+  }
+
+  handleScroll() {
+    if (window.scrollY < 100) {
+      this.setState({ scrolling: false });
+    } else {
+      this.setState({ scrolling: true });
+    }
+  }
+
+  render() {
+    const style = {
+      position: this.state.scrolling ? "fixed" : "relative",
+      top: 0,
+      width: "100vw",
+      zIndex: 1
+    };
+    return (
+      <ul style={style}>
+        <li>
+          <img heigh={20} width={20} src={menu} />
+        </li>
+        <li>
+          <StyledLink to="/" className="logo">
+            yourcoffeeandprints
+          </StyledLink>
+        </li>
+        <li>
+          <StyledLink to="/cart">Cart ({this.props.counter})</StyledLink>
+        </li>
+        <li>
+          <StyledLink to="/shop">Shop</StyledLink>
+        </li>
+        <li>
+          <StyledLink to="/about">About</StyledLink>
+        </li>
+      </ul>
+    );
+  }
+}
 
 function Navigation(props) {
   let counter = 0;
@@ -91,25 +148,7 @@ function Navigation(props) {
             <img heigh={15} width={15} src={envelope} />
           </li>
         </ul>
-        <ul>
-          <li>
-            <img heigh={20} width={20} src={menu} />
-          </li>
-          <li>
-            <StyledLink to="/" className="logo">
-              yourcoffeeandprints
-            </StyledLink>
-          </li>
-          <li>
-            <StyledLink to="/cart">Cart ({counter})</StyledLink>
-          </li>
-          <li>
-            <StyledLink to="/shop">Shop</StyledLink>
-          </li>
-          <li>
-            <StyledLink to="/about">About</StyledLink>
-          </li>
-        </ul>
+        <Nav counter={counter} />
       </div>
 
       {false && (
