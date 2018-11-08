@@ -7,7 +7,7 @@ import fb from "./img/icon/facebook-logo.svg";
 import ig from "./img/icon/instagram.svg";
 import envelope from "./img/icon/envelope.svg";
 import youtube from "./img/icon/youtube.svg";
-//import { menu } from "./img/icon/menu.svg";
+import cancel from "./img/icon/cancel.svg";
 
 const StyledLink = styled(NavLink)`
   text-decoration: none !important;
@@ -70,13 +70,35 @@ const Header = styled.div`
   }
 `;
 
+const HamburgerMenu = styled.table`
+  background: black;
+  z-index: 999;
+  width: 100%;
+  height: 100vh;
+  tbody {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+  }
+  tr {
+    padding: 1em;
+  }
+  td {
+  }
+  a {
+    color: white;
+  }
+`;
+
 export class Nav extends Component {
   constructor(props) {
     super(props);
-    this.handleScroll = this.handleScroll.bind(this);
+
     this.state = {
       scrolling: false
     };
+    this.handleScroll = this.handleScroll.bind(this);
   }
 
   componentDidMount() {
@@ -104,8 +126,8 @@ export class Nav extends Component {
     };
     return (
       <ul style={style}>
-        <li>
-          <img heigh={20} width={20} src={menu} />
+        <li onClick={() => this.props.handleMenu(1)}>
+          <img heigh={20} width={20} src={menu} alt={"menu"} />
         </li>
         <li>
           <StyledLink to="/" className="logo">
@@ -129,6 +151,52 @@ export class Nav extends Component {
 function Navigation(props) {
   let counter = 0;
   props.cart.map(item => (counter = counter + item.quantity));
+
+  let menuVisibility = false;
+
+  const handleMenu = what => {
+    console.log(what);
+    if (!what) {
+      menuVisibility = true;
+    }
+  };
+
+  const Hamburger = () => {
+    if (true) {
+      return (
+        <HamburgerMenu>
+          <thead>
+            <tr>
+              <th>
+                <img heigh={20} width={20} src={cancel} alt={"cancel"} />
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <StyledLink to="/cart" onClick={() => handleMenu(2)}>
+                  Cart ({counter})
+                </StyledLink>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <StyledLink to="/shop">Shop</StyledLink>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <StyledLink to="/about">About</StyledLink>
+              </td>
+            </tr>
+          </tbody>
+        </HamburgerMenu>
+      );
+    }
+    return null;
+  };
+  console.log(menuVisibility);
   return (
     <Header>
       <div>
@@ -136,39 +204,21 @@ function Navigation(props) {
           <li />
           <li>first 500 orders get free stickers</li>
           <li>
-            <img heigh={15} width={15} src={ig} />
+            <img heigh={15} width={15} src={ig} alt={"ig"} />
           </li>
           <li>
-            <img heigh={15} width={15} src={fb} />
+            <img heigh={15} width={15} src={fb} alt={"fb"} />
           </li>
           <li>
-            <img heigh={15} width={15} src={youtube} />
+            <img heigh={15} width={15} src={youtube} alt={"youtube"} />
           </li>
           <li>
-            <img heigh={15} width={15} src={envelope} />
+            <img heigh={15} width={15} src={envelope} alt={"envelope"} />
           </li>
         </ul>
-        <Nav counter={counter} />
+        <Nav counter={counter} handleMenu={() => handleMenu()} />
       </div>
-
-      {false && (
-        <nav>
-          <ul>
-            <li>
-              <StyledLink to="/">Home</StyledLink>
-            </li>
-            <li>
-              <StyledLink to="/cart">Cart ({counter})</StyledLink>
-            </li>
-            <li>
-              <StyledLink to="/shop">Shop</StyledLink>
-            </li>
-            <li>
-              <StyledLink to="/about">About</StyledLink>
-            </li>
-          </ul>
-        </nav>
-      )}
+      {menuVisibility ? Hamburger() : null}
     </Header>
   );
 }

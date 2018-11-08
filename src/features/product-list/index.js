@@ -60,8 +60,8 @@ DO NOT FORGET THAT YOU NEED TO HAVE AT LEAST 11 PRODUCTS, OTHERWISE CHANGE KEYS 
 */
 
 function ProductListing(props) {
-  const array = [1, 2, 3, 4, 0, 1, 1, 2, 3, 4, 0];
-  //const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  //const array = [1, 2, 3, 4, 0, 1, 1, 2, 3, 4, 0];
+  const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
   const shuffle = o => {
     for (
       var j, x, i = o.length;
