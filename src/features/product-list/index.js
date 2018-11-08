@@ -8,10 +8,17 @@ const Products = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  div {
+  .row {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    h6 {
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
   }
 `;
 const BestSellers = styled.div`
@@ -22,8 +29,10 @@ const BestSellers = styled.div`
   section {
     display: flex;
     flex-direction: row;
-    order: 1;
-    flex-grow: 1;
+    flex-grow: 2;
+    order: 3;
+    max-height: 50vw;
+    min-height: 50vw;
     div {
       display: flex;
       flex-direction: column;
@@ -32,194 +41,117 @@ const BestSellers = styled.div`
     }
   }
 
-  section {
-    max-height: 50vw;
-    min-height: 50vw;
+  section:first-child {
+    order: 1;
   }
 
-  section:nth-child(2) {
-    max-width: 25%;
+  section:nth-child(3) {
+    flex-grow: 1.5;
+    order: 2;
   }
 `;
 
-const Background = styled.div`
-  order: 1;
-  flex-grow: 1;
+const Column = styled.div`
   width: auto;
 `;
 
+/*
+DO NOT FORGET THAT YOU NEED TO HAVE AT LEAST 11 PRODUCTS, OTHERWISE CHANGE KEYS TO UNIQUE
+*/
+
 function ProductListing(props) {
-  let visibility = true;
-  const restore = num => {
-    if (num > 1) {
-      visibility = false;
-    }
-    console.log(num);
-  };
   const array = [1, 2, 3, 4, 0, 1, 1, 2, 3, 4, 0];
+  //const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  const shuffle = o => {
+    for (
+      var j, x, i = o.length;
+      i;
+      j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x
+    );
+    return o;
+  };
+
+  const what = props.bestSeller.length ? props.bestSeller : array;
+
   return (
     <Products>
       <h2>#bestsellers</h2>
       <div className="row">
-        <h6 onClick={() => props.onClickBestSeller("featured")}>featured</h6>
-        <h6 onClick={() => props.onClickBestSeller("new arrivals")}>
+        <h6 onClick={() => props.onClickBestSeller(shuffle(array))}>
+          featured
+        </h6>
+        <h6 onClick={() => props.onClickBestSeller(shuffle(array))}>
           new arrivals
         </h6>
-        <h6 onClick={() => props.onClickBestSeller("best sellers")}>
+        <h6 onClick={() => props.onClickBestSeller(shuffle(array))}>
           best sellers
         </h6>
       </div>
       <BestSellers style={{ background: "black" }}>
         <section>
-          <Background>
+          <Column>
             <ProductListItem
-              key={props.products[array[0]].id}
-              product={props.products[array[0]]}
-              addToCart={props.addToCart}
-              removeFromCart={props.removeFromCart}
-              onOpenProduct={props.onOpenProduct}
-              cartItem={
-                props.cart.filter(
-                  cartItem => cartItem.id === props.products[array[0]].id
-                )[0]
-              }
+              key={props.products[what[0]].id}
+              product={props.products[what[0]]}
             />
             <ProductListItem
-              key={props.products[2].id}
-              product={props.products[2]}
-              addToCart={props.addToCart}
-              removeFromCart={props.removeFromCart}
-              onOpenProduct={props.onOpenProduct}
-              cartItem={
-                props.cart.filter(
-                  cartItem => cartItem.id === props.products[2].id
-                )[0]
-              }
+              key={props.products[what[1]].id}
+              product={props.products[what[1]]}
             />
             <ProductListItem
-              key={props.products[3].id}
-              product={props.products[3]}
-              addToCart={props.addToCart}
-              removeFromCart={props.removeFromCart}
-              onOpenProduct={props.onOpenProduct}
-              cartItem={
-                props.cart.filter(
-                  cartItem => cartItem.id === props.products[3].id
-                )[0]
-              }
+              key={props.products[what[2]].id}
+              product={props.products[what[2]]}
             />
-          </Background>
-          <Background>
+          </Column>
+          <Column>
             <ProductListItem
-              key={props.products[4].id}
-              product={props.products[4]}
-              addToCart={props.addToCart}
-              removeFromCart={props.removeFromCart}
-              onOpenProduct={props.onOpenProduct}
-              cartItem={
-                props.cart.filter(
-                  cartItem => cartItem.id === props.products[4].id
-                )[0]
-              }
+              key={props.products[what[3]].id}
+              product={props.products[what[3]]}
             />
             <ProductListItem
-              key={props.products[0].id}
-              product={props.products[0]}
-              addToCart={props.addToCart}
-              removeFromCart={props.removeFromCart}
-              onOpenProduct={props.onOpenProduct}
-              cartItem={
-                props.cart.filter(
-                  cartItem => cartItem.id === props.products[0].id
-                )[0]
-              }
+              key={props.products[what[4]].id}
+              product={props.products[what[4]]}
             />
-          </Background>
+          </Column>
         </section>
-        {visibility ? (
+
+        <section>
+          <Column>
+            <ProductListItem
+              key={props.products[what[5]].id}
+              product={props.products[what[5]]}
+            />
+            <ProductListItem
+              key={props.products[what[6]].id}
+              product={props.products[what[6]]}
+            />
+            <ProductListItem
+              key={props.products[what[7]].id}
+              product={props.products[what[7]]}
+            />
+          </Column>
+          <Column>
+            <ProductListItem
+              key={props.products[what[8]].id}
+              product={props.products[what[8]]}
+            />
+            <ProductListItem
+              key={props.products[what[9]].id}
+              product={props.products[what[9]]}
+            />
+          </Column>
+        </section>
+
+        {props.bestSeller.length === 0 ? (
           <section>
-            <Background>
+            <Column>
               <ProductListItem
-                key={props.products[1].id}
-                product={props.products[1]}
-                addToCart={props.addToCart}
-                removeFromCart={props.removeFromCart}
-                onOpenProduct={props.onOpenProduct}
-                cartItem={
-                  props.cart.filter(
-                    cartItem => cartItem.id === props.products[1].id
-                  )[0]
-                }
+                key={props.products[what[10]].id}
+                product={props.products[what[10]]}
               />
-            </Background>
+            </Column>
           </section>
         ) : null}
-        <section>
-          <Background>
-            <ProductListItem
-              key={props.products[1].id}
-              product={props.products[1]}
-              addToCart={props.addToCart}
-              removeFromCart={props.removeFromCart}
-              onOpenProduct={props.onOpenProduct}
-              cartItem={
-                props.cart.filter(
-                  cartItem => cartItem.id === props.products[1].id
-                )[0]
-              }
-            />
-            <ProductListItem
-              key={props.products[2].id}
-              product={props.products[2]}
-              addToCart={props.addToCart}
-              removeFromCart={props.removeFromCart}
-              onOpenProduct={props.onOpenProduct}
-              cartItem={
-                props.cart.filter(
-                  cartItem => cartItem.id === props.products[2].id
-                )[0]
-              }
-            />
-            <ProductListItem
-              key={props.products[3].id}
-              product={props.products[3]}
-              addToCart={props.addToCart}
-              removeFromCart={props.removeFromCart}
-              onOpenProduct={props.onOpenProduct}
-              cartItem={
-                props.cart.filter(
-                  cartItem => cartItem.id === props.products[3].id
-                )[0]
-              }
-            />
-          </Background>
-          <Background>
-            <ProductListItem
-              key={props.products[4].id}
-              product={props.products[4]}
-              addToCart={props.addToCart}
-              removeFromCart={props.removeFromCart}
-              onOpenProduct={props.onOpenProduct}
-              cartItem={
-                props.cart.filter(
-                  cartItem => cartItem.id === props.products[4].id
-                )[0]
-              }
-            />
-            <ProductListItem
-              key={props.products[0].id}
-              product={props.products[0]}
-              addToCart={props.addToCart}
-              removeFromCart={props.removeFromCart}
-              onOpenProduct={props.onOpenProduct}
-              cartItem={
-                props.cart.filter(
-                  cartItem => cartItem.id === props.products[0].id
-                )[0]
-              }
-            />
-          </Background>
-        </section>
       </BestSellers>
     </Products>
   );

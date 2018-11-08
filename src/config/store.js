@@ -6,7 +6,7 @@ import bestSellerReducer from "../features/bestSellerReducer";
 const rootReducer = combineReducers({
   cart: cartReducer,
   selectedItem: idReducer,
-  whatToSee: bestSellerReducer
+  bestSeller: bestSellerReducer
 });
 
 /* eslint-disable no-underscore-dangle */
