@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import ProductListing from "../features/product-list";
 import data from "../data/products.json";
+import Instafeed from "react-instafeed";
 
 const FullPage = styled.div`
   width: 100vw !important;
@@ -76,6 +77,8 @@ const RecentPicture = styled.div`
 
 class LandingPage extends Component {
   render() {
+    const instafeedTarget = "instafeed";
+
     return (
       <Landing>
         <FullPage>
@@ -137,7 +140,28 @@ class LandingPage extends Component {
             <h6>what what</h6>
           </section>
         </main>
-        <div>insta</div>
+        <div className="header-info">
+          <h2>#instagram</h2>
+        </div>
+        <div id={instafeedTarget}>
+          <Instafeed
+            limit="7"
+            ref="instafeed"
+            resolution="low_resolution"
+            sortBy="most-recent"
+            target={instafeedTarget}
+            template={`
+            <a href='{{link}}' target='_blank' >
+            <div style="background: url({{image}}) no-repeat center center ;
+              background-size: cover;">
+            </div>        
+            </a>
+            `}
+            userId="5532662968"
+            clientId="55495b416e6a42b1ab990310d1b32db7"
+            accessToken="5532662968.1677ed0.f0f4d2da3f02486d85507d0868575603"
+          />
+        </div>
         <main className="row" style={{ width: "100%" }}>
           <section>
             <div />

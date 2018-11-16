@@ -10,6 +10,7 @@ import youtube from "./img/icon/youtube.svg";
 import cancel from "./img/icon/cancel.svg";
 
 const StyledLink = styled(NavLink)`
+  cursor: pointer;
   text-decoration: none !important;
   color: black;
   text-transform: uppercase;
@@ -127,7 +128,13 @@ export class Nav extends Component {
     return (
       <ul style={style}>
         <li onClick={() => this.props.handleMenu(1)}>
-          <img heigh={20} width={20} src={menu} alt={"menu"} />
+          <img
+            style={{ cursor: "pointer" }}
+            heigh={20}
+            width={20}
+            src={menu}
+            alt={"menu"}
+          />
         </li>
         <li>
           <StyledLink to="/" className="logo">
@@ -148,79 +155,125 @@ export class Nav extends Component {
   }
 }
 
-function Navigation(props) {
-  let counter = 0;
-  props.cart.map(item => (counter = counter + item.quantity));
+class Navigation extends Component {
+  constructor(props) {
+    super(props);
 
-  let menuVisibility = false;
+    this.state = {
+      menuVisibility: false
+    };
+    this.handleMenu = this.handleMenu.bind(this);
+  }
 
-  const handleMenu = what => {
+  handleMenu(what) {
     console.log(what);
-    if (!what) {
-      menuVisibility = true;
+    if (what === 1) {
+      this.setState({ menuVisibility: true });
     }
-  };
+    if (what === 2) {
+      this.setState({ menuVisibility: false });
+    }
+  }
 
-  const Hamburger = () => {
-    if (true) {
-      return (
-        <HamburgerMenu>
-          <thead>
-            <tr>
-              <th>
-                <img heigh={20} width={20} src={cancel} alt={"cancel"} />
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <StyledLink to="/cart" onClick={() => handleMenu(2)}>
-                  Cart ({counter})
-                </StyledLink>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <StyledLink to="/shop">Shop</StyledLink>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <StyledLink to="/about">About</StyledLink>
-              </td>
-            </tr>
-          </tbody>
-        </HamburgerMenu>
-      );
-    }
-    return null;
-  };
-  console.log(menuVisibility);
-  return (
-    <Header>
-      <div>
-        <ul>
-          <li />
-          <li>first 500 orders get free stickers</li>
-          <li>
-            <img heigh={15} width={15} src={ig} alt={"ig"} />
-          </li>
-          <li>
-            <img heigh={15} width={15} src={fb} alt={"fb"} />
-          </li>
-          <li>
-            <img heigh={15} width={15} src={youtube} alt={"youtube"} />
-          </li>
-          <li>
-            <img heigh={15} width={15} src={envelope} alt={"envelope"} />
-          </li>
-        </ul>
-        <Nav counter={counter} handleMenu={() => handleMenu()} />
-      </div>
-      {menuVisibility ? Hamburger() : null}
-    </Header>
-  );
+  render() {
+    let counter = 0;
+    this.props.cart.map(item => (counter = counter + item.quantity));
+    const Hamburger = () => {
+      if (true) {
+        return (
+          <HamburgerMenu>
+            <thead>
+              <tr>
+                <th>
+                  <img
+                    style={{ cursor: "pointer" }}
+                    heigh={20}
+                    width={20}
+                    src={cancel}
+                    alt={"cancel"}
+                    onClick={() => this.handleMenu(2)}
+                  />
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <StyledLink to="/cart" onClick={() => this.handleMenu(2)}>
+                    Cart ({counter})
+                  </StyledLink>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <StyledLink to="/shop" onClick={() => this.handleMenu(2)}>
+                    Shop
+                  </StyledLink>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <StyledLink to="/about" onClick={() => this.handleMenu(2)}>
+                    About
+                  </StyledLink>
+                </td>
+              </tr>
+            </tbody>
+          </HamburgerMenu>
+        );
+      }
+      return null;
+    };
+    console.log(this.state.menuVisibility);
+    return (
+      <Header>
+        <div>
+          <ul>
+            <li />
+            <li>first 500 orders get free stickers</li>
+            <li>
+              <img
+                style={{ cursor: "pointer" }}
+                heigh={15}
+                width={15}
+                src={ig}
+                alt={"ig"}
+              />
+            </li>
+            <li>
+              <img
+                style={{ cursor: "pointer" }}
+                heigh={15}
+                width={15}
+                src={fb}
+                alt={"fb"}
+              />
+            </li>
+            <li>
+              <img
+                style={{ cursor: "pointer" }}
+                heigh={15}
+                width={15}
+                src={youtube}
+                alt={"youtube"}
+              />
+            </li>
+            <li>
+              <img
+                style={{ cursor: "pointer" }}
+                heigh={15}
+                width={15}
+                src={envelope}
+                alt={"envelope"}
+              />
+            </li>
+          </ul>
+          <Nav counter={counter} handleMenu={this.handleMenu} />
+        </div>
+        {this.state.menuVisibility ? Hamburger() : null}
+      </Header>
+    );
+  }
 }
 
 function mapStateToProps(state) {
