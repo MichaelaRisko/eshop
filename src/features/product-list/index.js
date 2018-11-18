@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 
 const Products = styled.div`
-  margin: 3em;
+  margin: 3em 5em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -49,19 +49,16 @@ const BestSellers = styled.div`
     flex-grow: 1.5;
     order: 2;
   }
-`;
 
-const Column = styled.div`
-  width: auto;
+  section div.col {
+    div:nth-child(2) {
+      flex-shrink: 1.95;
+    }
+  }
 `;
-
-/*
-DO NOT FORGET THAT YOU NEED TO HAVE AT LEAST 11 PRODUCTS, OTHERWISE CHANGE KEYS TO UNIQUE
-*/
 
 function ProductListing(props) {
-  //const array = [1, 2, 3, 4, 0, 1, 1, 2, 3, 4, 0];
-  const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  const array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const shuffle = o => {
     for (
       var j, x, i = o.length;
@@ -87,9 +84,9 @@ function ProductListing(props) {
           best sellers
         </h6>
       </div>
-      <BestSellers style={{ background: "black" }}>
+      <BestSellers>
         <section>
-          <Column>
+          <div>
             <ProductListItem
               key={props.products[what[0]].id}
               product={props.products[what[0]]}
@@ -102,9 +99,10 @@ function ProductListing(props) {
               key={props.products[what[2]].id}
               product={props.products[what[2]]}
             />
-          </Column>
-          <Column>
+          </div>
+          <div className="col">
             <ProductListItem
+              double={true}
               key={props.products[what[3]].id}
               product={props.products[what[3]]}
             />
@@ -112,11 +110,11 @@ function ProductListing(props) {
               key={props.products[what[4]].id}
               product={props.products[what[4]]}
             />
-          </Column>
+          </div>
         </section>
 
         <section>
-          <Column>
+          <div>
             <ProductListItem
               key={props.products[what[5]].id}
               product={props.products[what[5]]}
@@ -129,27 +127,28 @@ function ProductListing(props) {
               key={props.products[what[7]].id}
               product={props.products[what[7]]}
             />
-          </Column>
-          <Column>
+          </div>
+          <div className="col" style={{ flexDirection: "column-reverse" }}>
             <ProductListItem
               key={props.products[what[8]].id}
               product={props.products[what[8]]}
             />
             <ProductListItem
+              double={true}
               key={props.products[what[9]].id}
               product={props.products[what[9]]}
             />
-          </Column>
+          </div>
         </section>
 
         {props.bestSeller.length === 0 ? (
           <section>
-            <Column>
+            <div>
               <ProductListItem
                 key={props.products[what[10]].id}
                 product={props.products[what[10]]}
               />
-            </Column>
+            </div>
           </section>
         ) : null}
       </BestSellers>

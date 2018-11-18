@@ -45,7 +45,7 @@ const Item = styled.div`
 
 export default function ProductListItem(props) {
   //const picture = `url("/products/01.png")`;
-  const picture = `url("/products/${
+  const picture = `url("img/products/${
     props.product.image
   } ") no-repeat center center`;
 

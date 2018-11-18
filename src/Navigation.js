@@ -2,19 +2,21 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import menu from "./img/icon/menu.svg";
-import fb from "./img/icon/facebook-logo.svg";
-import ig from "./img/icon/instagram.svg";
-import envelope from "./img/icon/envelope.svg";
-import youtube from "./img/icon/youtube.svg";
-import cancel from "./img/icon/cancel.svg";
+import menu from "./icons/menu.svg";
+import fb from "./icons/facebook-logo.svg";
+import ig from "./icons/instagram.svg";
+import envelope from "./icons/envelope.svg";
+import youtube from "./icons/youtube.svg";
+import cancel from "./icons/cancel.svg";
+import user from "./icons/user.svg";
+import search from "./icons/search.svg";
+import shoppingBag from "./icons/shopping-bag.svg";
 
 const StyledLink = styled(NavLink)`
   cursor: pointer;
   text-decoration: none !important;
   color: black;
   text-transform: uppercase;
-  padding-right: 1em;
   &:focus,
   &:hover,
   &:visited,
@@ -92,6 +94,11 @@ const HamburgerMenu = styled.table`
   }
 `;
 
+const icon = styled.img`
+  padding-right: 1em;
+  cursor: pointer;
+`;
+
 export class Nav extends Component {
   constructor(props) {
     super(props);
@@ -142,13 +149,38 @@ export class Nav extends Component {
           </StyledLink>
         </li>
         <li>
-          <StyledLink to="/cart">Cart ({this.props.counter})</StyledLink>
+          <StyledLink to="/user">
+            <img
+              style={{ cursor: "pointer" }}
+              heigh={20}
+              width={20}
+              src={user}
+              alt={"user"}
+            />
+          </StyledLink>
+        </li>
+
+        <li>
+          <img
+            style={{ cursor: "pointer" }}
+            heigh={20}
+            width={20}
+            src={search}
+            alt={"search"}
+          />
         </li>
         <li>
-          <StyledLink to="/shop">Shop</StyledLink>
-        </li>
-        <li>
-          <StyledLink to="/about">About</StyledLink>
+          <StyledLink to={this.props.counter ? "/cart" : "/shop"}>
+            {this.props.totalPrice ? this.props.totalPrice : null}
+            <img
+              style={{ cursor: "pointer" }}
+              heigh={20}
+              width={20}
+              src={shoppingBag}
+              alt={"shop"}
+            />{" "}
+            {this.props.counter ? this.props.counter : null}
+          </StyledLink>
         </li>
       </ul>
     );
@@ -166,8 +198,8 @@ class Navigation extends Component {
   }
 
   handleMenu(what) {
-    console.log(what);
     if (what === 1) {
+      // this.setState({ menuVisibility: !this.state.menuVisibility });
       this.setState({ menuVisibility: true });
     }
     if (what === 2) {
@@ -178,6 +210,11 @@ class Navigation extends Component {
   render() {
     let counter = 0;
     this.props.cart.map(item => (counter = counter + item.quantity));
+    let totalPrice = 0;
+    this.props.cart.map(
+      item => (totalPrice = totalPrice + item.price * item.quantity)
+    );
+
     const Hamburger = () => {
       if (true) {
         return (
@@ -224,7 +261,6 @@ class Navigation extends Component {
       }
       return null;
     };
-    console.log(this.state.menuVisibility);
     return (
       <Header>
         <div>
@@ -268,7 +304,11 @@ class Navigation extends Component {
               />
             </li>
           </ul>
-          <Nav counter={counter} handleMenu={this.handleMenu} />
+          <Nav
+            counter={counter}
+            totalPrice={totalPrice}
+            handleMenu={this.handleMenu}
+          />
         </div>
         {this.state.menuVisibility ? Hamburger() : null}
       </Header>
