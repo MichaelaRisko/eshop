@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import ProductListing from "../features/product-list";
 import data from "../data/products.json";
+import posts from "../data/posts.json";
 import Instafeed from "react-instafeed";
 
 const FullPage = styled.div`
@@ -10,7 +11,7 @@ const FullPage = styled.div`
   height: 80vh;
   main {
     height: 100%;
-    background: url("about01.jpg") no-repeat center center fixed;
+    background: url("img/Background.png") no-repeat center center fixed;
     background-size: cover;
     padding: 0 4em;
     display: flex;
@@ -59,26 +60,69 @@ const Landing = styled.div`
     justify-content: space-evenly;
     align-items: stretch;
     padding: 0 2em;
-    margin 0 auto;
+    margin-bottom: 3em;
     section {
       order: 1;
       flex-grow: 1;
+      padding-left: 1em;
+      div {
+        display: flex;
+        flex-direction: row;
+        p {
+          font-size: 0.7em;
+          padding-right: 0.6em;
+          text-transform: uppercase;
+          opacity: 0.5;
+        }
+      }
+
+      h4 {
+        margin: 0;
+      }
     }
-    section:nth-child(2) {
-      padding: 0 1em;
+    section:first-child {
+      padding-left: 0;
     }
   }
 `;
 
 const RecentPicture = styled.div`
-  width: 100%;
-  height: 10em;
+  height: 12em;
+  background: no-repeat center center;
+  background-size: cover !important;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.01);
+  }
 `;
+
+const RecentPost = props => {
+  const picture = `url("img/blog/${props.data.cover_pic} ")`;
+
+  return (
+    <section>
+      <RecentPicture
+        style={{
+          background: `${picture}`
+        }}
+      />
+      <div>
+        {props.data.category.map((what, i) => (
+          <p key={i}>{what}</p>
+        ))}
+      </div>
+      <h4>
+        {props.data.heading[0].toUpperCase() + props.data.heading.slice(1)}
+      </h4>
+    </section>
+  );
+};
 
 class LandingPage extends Component {
   render() {
     const instafeedTarget = "instafeed";
-
+    const numberOfPosts = 3;
     return (
       <Landing>
         <FullPage>
@@ -104,41 +148,14 @@ class LandingPage extends Component {
             </section>
           </main>
         </FullPage>
-        <ProductListing
-          products={data.products}
-          style={{ margin: "0em 4em" }}
-        />
+        <ProductListing products={data.products} />
         <div className="header-info">
           <h2>#recent post</h2>
         </div>
         <main className="recent">
-          <section>
-            <RecentPicture
-              style={{
-                background: 'url("about01.jpg") no-repeat center center '
-              }}
-            />
-            <p>art</p>
-            <h6>what what</h6>
-          </section>
-          <section>
-            <RecentPicture
-              style={{
-                background: 'url("about01.jpg") no-repeat center center '
-              }}
-            />
-            <p>art</p>
-            <h6>what what</h6>
-          </section>
-          <section>
-            <RecentPicture
-              style={{
-                background: 'url("about01.jpg") no-repeat center center '
-              }}
-            />
-            <p>art</p>
-            <h6>what what</h6>
-          </section>
+          {posts.posts.slice(0, numberOfPosts).map((data, i) => (
+            <RecentPost data={data} key={i} />
+          ))}
         </main>
         <div className="header-info">
           <h2>#instagram</h2>
@@ -183,10 +200,6 @@ class LandingPage extends Component {
             <p>free returns</p>
             <h6>or customized product</h6>
           </section>
-        </main>
-        <main className="header-info">
-          <h2>newsletter</h2>
-          <h6>subscribe our newsletter and get discount 50% off</h6>
         </main>
       </Landing>
     );

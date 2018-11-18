@@ -5,11 +5,12 @@ import { connect } from "react-redux";
 
 import data from "./data/products.json";
 import LandingPage from "./pages/LandingPage.js";
-import HomePage from "./pages/HomePage";
+
 import CartPage from "./pages/CartPage";
 import ShopPage from "./pages/ShopPage";
 import AboutPage from "./pages/AboutPage";
 import ProductPage from "./pages/ProductPage";
+import Example from "./pages/ExamplePost";
 
 const Router = props => {
   const Product = () => (
@@ -18,11 +19,13 @@ const Router = props => {
       addToCart={props.addToCart}
     />
   );
+  // user needed to be changed
   return (
     <Switch>
       <Route exact path="/" component={LandingPage} />
       <Route exact path="/cart" component={CartPage} />
       <Route exact path="/shop" component={ShopPage} />
+      <Route exact path="/user" component={AboutPage} />
       <Route exact path="/about" component={AboutPage} />
       <Route
         exact
@@ -39,6 +42,7 @@ const Router = props => {
         path={`/planners/planner_id_${props.selectedItem.id}`}
         component={Product}
       />
+      <Route exact path={"/blog-posts/example"} component={Example} />
     </Switch>
   );
 };
