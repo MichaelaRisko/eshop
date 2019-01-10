@@ -94,9 +94,12 @@ const HamburgerMenu = styled.table`
   }
 `;
 
-const icon = styled.img`
-  padding-right: 1em;
+const Icon = styled.li`
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 export class Nav extends Component {
@@ -134,7 +137,7 @@ export class Nav extends Component {
     };
     return (
       <ul style={style}>
-        <li onClick={() => this.props.handleMenu(1)}>
+        <Icon onClick={() => this.props.handleMenu(1)}>
           <img
             style={{ cursor: "pointer" }}
             heigh={20}
@@ -142,13 +145,13 @@ export class Nav extends Component {
             src={menu}
             alt={"menu"}
           />
-        </li>
-        <li>
+        </Icon>
+        <Icon>
           <StyledLink to="/" className="logo">
             yourcoffeeandprints
           </StyledLink>
-        </li>
-        <li>
+        </Icon>
+        <Icon>
           <StyledLink to="/user">
             <img
               style={{ cursor: "pointer" }}
@@ -158,9 +161,9 @@ export class Nav extends Component {
               alt={"user"}
             />
           </StyledLink>
-        </li>
+        </Icon>
 
-        <li>
+        <Icon>
           <img
             style={{ cursor: "pointer" }}
             heigh={20}
@@ -168,8 +171,8 @@ export class Nav extends Component {
             src={search}
             alt={"search"}
           />
-        </li>
-        <li>
+        </Icon>
+        <Icon>
           <StyledLink to={this.props.counter ? "/cart" : "/shop"}>
             {this.props.totalPrice ? this.props.totalPrice : null}
             <img
@@ -181,7 +184,7 @@ export class Nav extends Component {
             />{" "}
             {this.props.counter ? this.props.counter : null}
           </StyledLink>
-        </li>
+        </Icon>
       </ul>
     );
   }
@@ -198,9 +201,9 @@ class Navigation extends Component {
   }
 
   handleMenu(what) {
+    console.log(what);
     if (what === 1) {
-      // this.setState({ menuVisibility: !this.state.menuVisibility });
-      this.setState({ menuVisibility: true });
+      this.setState({ menuVisibility: !this.state.menuVisibility });
     }
     if (what === 2) {
       this.setState({ menuVisibility: false });
@@ -267,7 +270,7 @@ class Navigation extends Component {
           <ul>
             <li />
             <li>first 500 orders get free stickers</li>
-            <li>
+            <Icon>
               <img
                 style={{ cursor: "pointer" }}
                 heigh={15}
@@ -275,8 +278,8 @@ class Navigation extends Component {
                 src={ig}
                 alt={"ig"}
               />
-            </li>
-            <li>
+            </Icon>
+            <Icon>
               <img
                 style={{ cursor: "pointer" }}
                 heigh={15}
@@ -284,8 +287,8 @@ class Navigation extends Component {
                 src={fb}
                 alt={"fb"}
               />
-            </li>
-            <li>
+            </Icon>
+            <Icon>
               <img
                 style={{ cursor: "pointer" }}
                 heigh={15}
@@ -293,8 +296,8 @@ class Navigation extends Component {
                 src={youtube}
                 alt={"youtube"}
               />
-            </li>
-            <li>
+            </Icon>
+            <Icon>
               <img
                 style={{ cursor: "pointer" }}
                 heigh={15}
@@ -302,7 +305,7 @@ class Navigation extends Component {
                 src={envelope}
                 alt={"envelope"}
               />
-            </li>
+            </Icon>
           </ul>
           <Nav
             counter={counter}
